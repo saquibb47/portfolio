@@ -55,7 +55,7 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, message })
         })
-        .then(res => res.text())
+        .then(res => res.text()) 
         .then(data => {
             alert(data);
             document.getElementById('userName').value = "";
