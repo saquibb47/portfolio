@@ -3,7 +3,11 @@ const express = require('express');
 const mysql = require('mysql2');
 const path = require('path');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
+
+// Allow JSON data to be read
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Connect to TiDB Cloud
 const connection = mysql.createConnection({
@@ -17,22 +21,35 @@ const connection = mysql.createConnection({
 
 connection.connect((err) => {
   if (err) {
-    console.error('Error connecting to TiDB: ' + err.stack);
+    console.error('Database connection failed: ' + err.stack);
     return;
   }
   console.log('Connected to TiDB Cloud!');
 });
 
-// This route sends the HTML file to your browser
+// Route to show the website
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// This is a special "API" route for the HTML to check the status
+// Route to check database status
 app.get('/status', (req, res) => {
-  res.send('Database is connected and Server is running!');
+  res.send('Database Connected ✅');
+});
+
+// Route to save contact messages
+app.post('/contact', (req, res) => {
+  const { name, message } = req.body;
+  const sql = 'INSERT INTO messages (name, content) VALUES (?, ?)';
+  connection.query(sql, [name, message], (err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('Error saving to database');
+    }
+    res.send('Success! Your message is in TiDB.');
+  });
 });
 
 app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
+  console.log(`Server running at http://localhost:${port}`);
 });
