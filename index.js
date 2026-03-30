@@ -5,9 +5,12 @@ const path = require('path');
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Allow JSON data to be read
+// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// --- ADD THIS LINE BELOW TO FIX THE PHOTO ---
+app.use(express.static(path.join(__dirname, '.'))); 
 
 // Connect to TiDB Cloud
 const connection = mysql.createConnection({
@@ -41,9 +44,10 @@ app.get('/status', (req, res) => {
 app.post('/contact', (req, res) => {
   const { name, message } = req.body;
   const sql = 'INSERT INTO messages (name, content) VALUES (?, ?)';
+  
   connection.query(sql, [name, message], (err) => {
     if (err) {
-      console.error(err);
+      console.error("DB ERROR:", err);
       return res.status(500).send('Error saving to database');
     }
     res.send('Success! Your message is in TiDB.');

@@ -3,66 +3,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My College Portfolio</title>
+    <title>Saquib Baig | Fullstack & AIML Engineer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
-        .card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center; }
-        h1 { color: #1a73e8; margin-bottom: 10px; }
-        p { color: #5f6368; margin-bottom: 20px; font-size: 14px; }
-        .form-group { text-align: left; margin-bottom: 15px; }
-        input, textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-top: 5px; }
-        button { width: 100%; padding: 12px; background: #1a73e8; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        button:hover { background: #1557b0; }
-        #status { margin-top: 15px; font-size: 12px; font-weight: bold; padding: 8px; border-radius: 5px; background: #e8f0fe; color: #1967d2; }
+        :root {
+            --primary: #6366f1;
+            --secondary: #a855f7;
+            --bg: #0b0f1a;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.15) 0px, transparent 50%);
+            color: var(--text-main);
+            overflow-x: hidden;
+            display: flex;
+        }
+
+        /* --- SIDEBAR NAVIGATION --- */
+        nav {
+            width: 260px;
+            height: 100vh;
+            position: fixed;
+            border-right: 1px solid var(--glass-border);
+            background: rgba(11, 15, 26, 0.8);
+            backdrop-filter: blur(20px);
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .nav-logo { font-weight: 700; font-size: 1.5rem; margin-bottom: 50px; background: linear-gradient(to right, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .nav-links { list-style: none; flex-grow: 1; }
+        .nav-links li { margin-bottom: 20px; }
+        .nav-links a { text-decoration: none; color: var(--text-dim); font-size: 0.9rem; transition: 0.3s; display: flex; align-items: center; gap: 12px; }
+        .nav-links a:hover { color: var(--text-main); transform: translateX(5px); }
+
+        /* --- MAIN CONTENT --- */
+        main { margin-left: 260px; width: calc(100% - 260px); padding: 0 60px; }
+        section { padding: 100px 0; border-bottom: 1px solid var(--glass-border); min-height: 60vh; }
+
+        .glass-panel {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero { display: flex; align-items: center; justify-content: space-between; min-height: 80vh; }
+        .profile-img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 3px solid var(--primary);
+            padding: 5px;
+            margin-bottom: 25px;
+            object-fit: cover;
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.4);
+        }
+
+        .hero-text h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 20px; }
+        .hero-text span { color: var(--primary); }
+        .hero-text p { font-size: 1.2rem; color: var(--text-dim); max-width: 550px; }
+
+        /* --- SKILLS --- */
+        .skills-container { display: flex; flex-wrap: wrap; gap: 15px; }
+        .skill-pill { background: rgba(255,255,255,0.05); padding: 10px 20px; border-radius: 50px; border: 1px solid var(--glass-border); font-size: 0.9rem; transition: 0.3s; }
+        .skill-pill:hover { background: var(--primary); border-color: var(--primary); }
+
+        /* --- CONTACT --- */
+        .contact-flex { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+        input, textarea {
+            width: 100%; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border);
+            padding: 15px; border-radius: 12px; color: white; margin-bottom: 15px; outline: none;
+        }
+        button {
+            background: var(--primary); color: white; border: none; padding: 15px 40px; 
+            border-radius: 12px; font-weight: 600; cursor: pointer; transition: 0.3s;
+        }
+
+        #db-status { font-size: 12px; color: #4ade80; margin-top: 20px; display: flex; align-items: center; gap: 10px; }
+        .dot { width: 8px; height: 8px; background: #4ade80; border-radius: 50%; box-shadow: 0 0 10px #4ade80; }
+
+        @media (max-width: 1024px) {
+            nav { width: 80px; padding: 40px 10px; }
+            nav .nav-links span, nav .nav-logo { display: none; }
+            main { margin-left: 80px; width: calc(100% - 80px); padding: 0 20px; }
+            .hero-text h1 { font-size: 2.8rem; }
+            .contact-flex { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <h1>My Portfolio</h1>
-    <p>Fullstack College Project using Node.js & TiDB Cloud</p>
-    
-    <div id="status">Checking Database...</div>
+    <nav>
+        <div class="nav-logo">SAQUIB.</div>
+        <ul class="nav-links">
+            <li><a href="#home"><i class="fas fa-home"></i> <span>Home</span></a></li>
+            <li><a href="#about"><i class="fas fa-user-graduate"></i> <span>Education</span></a></li>
+            <li><a href="#skills"><i class="fas fa-microchip"></i> <span>Tech Stack</span></a></li>
+            <li><a href="#contact"><i class="fas fa-envelope"></i> <span>Message Me</span></a></li>
+        </ul>
+        <div id="db-status"><div class="dot"></div> <span>TIDB CLOUD READY</span></div>
+    </nav>
 
-    <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-text">
+                <img src="photo.jpg" alt="Saquib Baig" class="profile-img">
+                <p style="color: var(--primary); font-weight: 600; letter-spacing: 1px;">BSC AIML STUDENT</p>
+                <h1>I'm <span>Saquib Baig</span>.</h1>
+                <p>Developing intelligent systems at Kristu Jayanti University. Bridging the gap between <span>Fullstack Web Development</span> and <span>Artificial Intelligence</span>.</p>
+                <div style="margin-top: 35px; display: flex; gap: 20px;">
+                    <button onclick="document.getElementById('contact').scrollIntoView()">Let's Talk</button>
+                    <button style="background: transparent; border: 1px solid var(--glass-border);">Download CV</button>
+                </div>
+            </div>
+        </section>
 
-    <div class="form-group">
-        <input type="text" id="userName" placeholder="Your Name">
-    </div>
-    <div class="form-group">
-        <textarea id="userMsg" placeholder="Your Message" rows="3"></textarea>
-    </div>
-    <button onclick="sendData()">Send Message</button>
-</div>
+        <section id="about">
+            <div class="glass-panel">
+                <h3 style="margin-bottom: 20px; font-size: 2rem;">Education & Background</h3>
+                <p style="color: var(--text-dim); line-height: 1.8; margin-bottom: 15px;">
+                    Currently a <strong>Second Semester BSc AIML</strong> student at <strong>Kristu Jayanti University</strong>. 
+                    I focus on data-driven applications, mastering both the frontend experience and the complex logic of backend systems.
+                </p>
+                <p style="color: var(--text-dim); line-height: 1.8;">
+                    I thrive on building scalable projects using modern web technologies while exploring the vast potential of Machine Learning models and statistical computing.
+                </p>
+            </div>
+        </section>
 
-<script>
-    // Check connection on load
-    fetch('/status')
-        .then(res => res.text())
-        .then(data => document.getElementById('status').innerText = data)
-        .catch(() => document.getElementById('status').innerText = "Offline ❌");
+        <section id="skills">
+            <h3 style="font-size: 2rem; margin-bottom: 30px;">Technological Stack</h3>
+            <div class="skills-container">
+                <span class="skill-pill">HTML / CSS / JS</span>
+                <span class="skill-pill">Node.js</span>
+                <span class="skill-pill">Express.js</span>
+                <span class="skill-pill">MySQL (TiDB Cloud)</span>
+                <span class="skill-pill">MongoDB</span>
+                <span class="skill-pill">C Programming</span>
+                <span class="skill-pill">R (Statistical Computing)</span>
+                <span class="skill-pill">Git / GitHub</span>
+                <span class="skill-pill">REST APIs</span>
+            </div>
+        </section>
 
-    // Send data to TiDB
-    function sendData() {
-        const name = document.getElementById('userName').value;
-        const message = document.getElementById('userMsg').value;
+        <section id="contact">
+            <div class="contact-flex">
+                <div>
+                    <h3 style="font-size: 2rem; margin-bottom: 20px;">Get in Touch</h3>
+                    <p style="color: var(--text-dim); margin-bottom: 30px;">
+                        Want to collaborate on a project or discuss the future of AI? Send me a message, and it will be instantly saved to my TiDB Cloud database.
+                    </p>
+                    <p style="margin-bottom: 10px;"><i class="fas fa-university" style="color: var(--primary);"></i> Kristu Jayanti University, Bengaluru</p>
+                    <p><i class="fas fa-envelope" style="color: var(--primary);"></i> saquib@example.com</p>
+                </div>
+                <div class="glass-panel">
+                    <input type="text" id="userName" placeholder="Your Name">
+                    <textarea id="userMsg" placeholder="Your message here..." rows="5"></textarea>
+                    <button id="sendBtn" onclick="sendData()">Send Message to TiDB</button>
+                </div>
+            </div>
+        </section>
 
-        if(!name || !message) return alert("Fill both fields!");
+        <footer style="padding: 40px 0; text-align: center; color: var(--text-dim); font-size: 0.8rem;">
+            &copy; 2026 Saquib Baig. Powered by TiDB Cloud & Node.js.
+        </footer>
+    </main>
 
-        fetch('/contact', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, message })
-        })
-        .then(res => res.text()) 
-        .then(data => {
-            alert(data);
-            document.getElementById('userName').value = "";
-            document.getElementById('userMsg').value = "";
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
         });
-    }
-</script>
 
+        // DB Status
+        fetch('/status').then(res => res.text()).then(data => {
+            const statusSpan = document.querySelector('#db-status span');
+            if(statusSpan) statusSpan.innerText = data.toUpperCase();
+        });
+
+        // Send Message
+        async function sendData() {
+            const name = document.getElementById('userName').value;
+            const message = document.getElementById('userMsg').value;
+            const btn = document.getElementById('sendBtn');
+            if(!name || !message) return alert("Validation Error: Fields required.");
+            btn.innerText = "Encrypting...";
+            try {
+                const response = await fetch('/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, message })
+                });
+                if(response.ok) {
+                    alert("Message secured in TiDB Cloud!");
+                    document.getElementById('userName').value = "";
+                    document.getElementById('userMsg').value = "";
+                }
+            } catch (err) { alert("Handshake Failed."); }
+            finally { btn.innerText = "Deploy to DB"; }
+        }
+    </script>
 </body>
 </html>
